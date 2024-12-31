@@ -11,6 +11,10 @@ inputs:
     description: 'The branch to compare against'
     required: true
     default: 'origin/master'
+  quick-deploy-id:
+    description: 'The id of the quick deploy to deploy'
+    required: false
+    default: ''
 
 runs:
   using: composite
@@ -29,7 +33,13 @@ runs:
       shell: bash
       run: | 
         sf org login sfdx-url --sfdx-url-file "${{ inputs.auth-file }}" --set-default-dev-hub --alias DevHub
-    - name: Validate
+    - name: Quick Deploy
+      if: ${{ inputs.quick-deploy-id != '' }}
+      shell: bash
+      run: |
+        sf project deploy quick --id "${{ inputs.quick-deploy-id }}" --json > deploy.json
+    - name: Deploy Delta
+      if: ${{ inputs.quick-deploy-id == '' }}
       shell: bash
       run: |
         sf sgd source delta --to "HEAD" --from "${{ inputs.branch }}" --output "." 
