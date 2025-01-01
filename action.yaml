@@ -17,7 +17,7 @@ inputs:
     default: ''
   out-file:
     description: 'The file to output the deploy results to'
-    required: false
+    required: true
     default: 'deploy.json'
 
 runs:
