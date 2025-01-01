@@ -37,7 +37,7 @@ runs:
       if: ${{ inputs.quick-deploy-id != '' }}
       shell: bash
       run: |
-        sf project deploy quick --job-id "${{ inputs.quick-deploy-id }}" --target-org DevHub --json > deploy.json
+        sf project deploy quick --job-id "${{ inputs.quick-deploy-id }}" -o DevHub --json > deploy.json
     - name: Deploy Delta
       if: ${{ inputs.quick-deploy-id == '' }}
       shell: bash
