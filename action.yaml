@@ -47,4 +47,4 @@ runs:
       shell: bash
       run: |
         sf sgd source delta --to "HEAD" --from "${{ inputs.branch }}" --output "." 
-        sf project deploy start --test-level RunLocalTests --manifest package/package.xml -o DevHub -w 120 --json --pre-destructive-changes ./destructiveChanges/destructiveChanges.xml > deploy.json
+        sf project deploy start --test-level RunLocalTests --manifest package/package.xml -o DevHub -w 120 --json --pre-destructive-changes ./destructiveChanges/destructiveChanges.xml > ${{ inputs.out-file }}
