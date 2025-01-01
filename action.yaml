@@ -15,6 +15,10 @@ inputs:
     description: 'The id of the quick deploy to deploy'
     required: false
     default: ''
+  out-file:
+    description: 'The file to output the deploy results to'
+    required: false
+    default: 'deploy.json'
 
 runs:
   using: composite
@@ -37,7 +41,7 @@ runs:
       if: ${{ inputs.quick-deploy-id != '' }}
       shell: bash
       run: |
-        sf project deploy quick --job-id "${{ inputs.quick-deploy-id }}" -o DevHub --json > deploy.json
+        sf project deploy quick --job-id "${{ inputs.quick-deploy-id }}" -o DevHub --json > ${{ inputs.out-file }}
     - name: Deploy Delta
       if: ${{ inputs.quick-deploy-id == '' }}
       shell: bash
